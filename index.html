@@ -567,7 +567,7 @@
         </div>
 
         <!-- Create Quiz Tab -->
-        <div id="create-quiz-tab" class="tab-content main-content">
+<!--        <div id="create-quiz-tab" class="tab-content main-content">
             <h2>Create New Quiz</h2>
             <form id="create-quiz-form">
                 <div class="form-group">
@@ -622,7 +622,7 @@
                     <button type="button" class="btn btn-success" onclick="finishQuiz()">Finish Quiz</button>
                 </form>
             </div>
-        </div>
+        </div>-->
 
         <!-- Results Tab -->
         <div id="results-tab" class="tab-content main-content">
@@ -1051,86 +1051,86 @@
     }
 
     // Quiz creation functions
-    async function handleCreateQuiz(e) {
-        e.preventDefault();
-        const title = document.getElementById('quiz-title').value;
-        const description = document.getElementById('quiz-description').value;
-        const duration = parseInt(document.getElementById('quiz-duration').value);
+    // async function handleCreateQuiz(e) {
+    //     e.preventDefault();
+    //     const title = document.getElementById('quiz-title').value;
+    //     const description = document.getElementById('quiz-description').value;
+    //     const duration = parseInt(document.getElementById('quiz-duration').value);
 
-        try {
-            const response = await fetch(`${API_BASE}/quizzes`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': authHeader
-                },
-                body: JSON.stringify({
-                    title: title,
-                    description: description,
-                    durationInMinutes: duration
-                })
-            });
+    //     try {
+    //         const response = await fetch(`${API_BASE}/quizzes`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': authHeader
+    //             },
+    //             body: JSON.stringify({
+    //                 title: title,
+    //                 description: description,
+    //                 durationInMinutes: duration
+    //             })
+    //         });
 
-            if (response.ok) {
-                const createdQuiz = await response.json();
-                currentQuizId = createdQuiz.id;
+    //         if (response.ok) {
+    //             const createdQuiz = await response.json();
+    //             currentQuizId = createdQuiz.id;
 
-                showAlert('Quiz created successfully! Now add questions.', 'success');
-                document.getElementById('questions-section').classList.remove('hidden');
-                document.getElementById('create-quiz-form').style.display = 'none';
-            } else {
-                const error = await response.text();
-                showAlert('Failed to create quiz: ' + error, 'error');
-            }
-        } catch (error) {
-            showAlert('Error creating quiz: ' + error.message, 'error');
-        }
-    }
+    //             showAlert('Quiz created successfully! Now add questions.', 'success');
+    //             document.getElementById('questions-section').classList.remove('hidden');
+    //             document.getElementById('create-quiz-form').style.display = 'none';
+    //         } else {
+    //             const error = await response.text();
+    //             showAlert('Failed to create quiz: ' + error, 'error');
+    //         }
+    //     } catch (error) {
+    //         showAlert('Error creating quiz: ' + error.message, 'error');
+    //     }
+    // }
 
-    async function handleAddQuestion(e) {
-        e.preventDefault();
+    // async function handleAddQuestion(e) {
+    //     e.preventDefault();
 
-        const questionData = {
-            quiz: { id: currentQuizId },
-            text: document.getElementById('question-text').value,
-            optionA: document.getElementById('option-a').value,
-            optionB: document.getElementById('option-b').value,
-            optionC: document.getElementById('option-c').value,
-            optionD: document.getElementById('option-d').value,
-            correctAnswer: document.getElementById('correct-answer').value
-        };
+    //     const questionData = {
+    //         quiz: { id: currentQuizId },
+    //         text: document.getElementById('question-text').value,
+    //         optionA: document.getElementById('option-a').value,
+    //         optionB: document.getElementById('option-b').value,
+    //         optionC: document.getElementById('option-c').value,
+    //         optionD: document.getElementById('option-d').value,
+    //         correctAnswer: document.getElementById('correct-answer').value
+    //     };
 
-        try {
-            const response = await fetch(`${API_BASE}/questions`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': authHeader
-                },
-                body: JSON.stringify(questionData)
-            });
+    //     try {
+    //         const response = await fetch(`${API_BASE}/questions`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': authHeader
+    //             },
+    //             body: JSON.stringify(questionData)
+    //         });
 
-            if (response.ok) {
-                showAlert('Question added successfully!', 'success');
-                document.getElementById('add-question-form').reset();
-            } else {
-                const error = await response.text();
-                showAlert('Failed to add question: ' + error, 'error');
-            }
-        } catch (error) {
-            showAlert('Error adding question: ' + error.message, 'error');
-        }
-    }
+    //         if (response.ok) {
+    //             showAlert('Question added successfully!', 'success');
+    //             document.getElementById('add-question-form').reset();
+    //         } else {
+    //             const error = await response.text();
+    //             showAlert('Failed to add question: ' + error, 'error');
+    //         }
+    //     } catch (error) {
+    //         showAlert('Error adding question: ' + error.message, 'error');
+    //     }
+    // }
 
-    function finishQuiz() {
-        showAlert('Quiz created successfully!', 'success');
-        document.getElementById('create-quiz-form').reset();
-        document.getElementById('add-question-form').reset();
-        document.getElementById('questions-section').classList.add('hidden');
-        document.getElementById('create-quiz-form').style.display = 'block';
-        currentQuizId = null;
-        switchMainTab('quizzes');
-    }
+    // function finishQuiz() {
+    //     showAlert('Quiz created successfully!', 'success');
+    //     document.getElementById('create-quiz-form').reset();
+    //     document.getElementById('add-question-form').reset();
+    //     document.getElementById('questions-section').classList.add('hidden');
+    //     document.getElementById('create-quiz-form').style.display = 'block';
+    //     currentQuizId = null;
+    //     switchMainTab('quizzes');
+    // }
 
     // Results functions
     async function loadResults() {
